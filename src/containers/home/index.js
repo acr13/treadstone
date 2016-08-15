@@ -2,30 +2,22 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import {
   StyleSheet,
-  TouchableOpacity,
-  Text,
   View,
 } from 'react-native';
+import Net from '../../components/net';
+
 import { jumpTo } from '../../actions/navigator';
 import { SCENES } from '../../constants';
 import { COLORS } from '../../styles/clrs';
 
-function Home({ goToNextPageAction }) {
+function Home() {
   return (
     <View style={styles.container}>
 
-      <View style={styles.topBar}>
-        <Text>{'Home Page'}</Text>
-      </View>
-
       <View style={styles.content}>
-        <TouchableOpacity
-          onPress={() => goToNextPageAction()}
-          style={styles.button}
-        >
-          <Text style={styles.text}>{'Go'}</Text>
-        </TouchableOpacity>
+        <Net />
       </View>
+      <View style={styles.bottomBar} />
     </View>
   );
 }
@@ -48,28 +40,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  topBar: {
-    height: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderBottomColor: COLORS.black,
-    borderBottomWidth: 1,
-  },
   content: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
-  button: {
-    flexDirection: 'row',
-    height: 40,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    marginHorizontal: 20,
-    backgroundColor: COLORS.gray,
-  },
-  text: {
-    flex: 1,
-    textAlign: 'center',
+  bottomBar: {
+    height: 75,
+    backgroundColor: COLORS.white,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.gray,
   },
 });

@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import * as R from 'ramda';
 import Home from '../containers/home/';
-import Test from '../containers/test/';
 
 import { SCENES } from '../constants';
 
@@ -14,7 +13,6 @@ const App404 = () => (
 
 const getScene = R.cond([
   [R.equals(SCENES.HOME), () => <Home />],
-  [R.equals(SCENES.SCENE_TWO), () => <Test />],
   [R.T(), R.always(<App404 />)],
 ]);
 
