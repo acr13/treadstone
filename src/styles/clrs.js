@@ -15,4 +15,6 @@ export const COLORS = {
   lightGray: '#c7c7cc',
   nearWhite: '#f5f6f7',
   darkBlue: '#212735',
+  veryLightGray: 'rgba(0,0,0,0.01)',
+  royalBlue: 'rgb(59,89,152)',
 };
