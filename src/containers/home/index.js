@@ -16,7 +16,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import Breakout from '../../components/breakout/breakout';
 
-const tabNames = ['Stats', 'PK', 'Net', 'PP', 'Settings'];
+const tabNames = ['Stats', 'Breakout', 'Net', 'PP', 'Settings'];
 
 function Home() {
   return (

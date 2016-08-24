@@ -3,12 +3,11 @@ import {
   Animated,
   Easing,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { COLORS } from '../../styles/clrs';
 
-export default class Player extends Component {
+export default class Puck extends Component {
 
   constructor(props) {
     super(props);
@@ -35,12 +34,10 @@ export default class Player extends Component {
 
   render() {
     return (
-      <Animated.View style={[styles.player, {
+      <Animated.View style={[styles.puck, {
         top: this.state.position.x,
         left: this.state.position.y,
-      }]}>
-        <Text style={styles.text}>{this.props.label}</Text>
-      </Animated.View>
+      }]} />
     );
   }
 
@@ -61,26 +58,18 @@ export default class Player extends Component {
 
 }
 
-Player.propTypes = {
-  label: PropTypes.string,
+Puck.propTypes = {
   positions: PropTypes.array,
 };
 
 const styles = StyleSheet.create({
-  player: {
+  puck: {
     position: 'absolute',
     top: 50,
     left: 50,
-    height: 20,
-    width: 20,
-    borderRadius: 10,
-    backgroundColor: COLORS.royalBlue,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    backgroundColor: COLORS.transparent,
-    fontSize: 8,
-    color: COLORS.white,
+    height: 10,
+    width: 10,
+    borderRadius: 5,
+    backgroundColor: COLORS.black,
   },
 });

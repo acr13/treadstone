@@ -1,11 +1,19 @@
 import React from 'react';
 import {
-  Dimensions,
   StyleSheet,
   View,
 } from 'react-native';
 import { COLORS } from '../../styles/clrs';
 import Player from '../player/player';
+import Puck from '../puck/puck';
+import {
+  LW,
+  C,
+  RW,
+  LD,
+  RD,
+  PUCK,
+} from '../../plays/breakouts/breakout1';
 
 const HEIGHT_ICE = 500;
 const WIDTH_ICE = 345;
@@ -43,10 +51,12 @@ function Breakout() {
       <View style={[styles.faceoffCircle, styles.homeLeftHashDot]} />
       <View style={[styles.faceoffCircle, styles.homeRightHashDot]} />
 
-      <Player
-        label={'LW'}
-        positions={[{x: 0, y: 0}, {x: 300, y: 300}]}
-      />
+      <Puck positions={PUCK} />
+      <Player label={'LW'} positions={LW} />
+      <Player label={'C'} positions={C} />
+      <Player label={'RW'} positions={RW} />
+      <Player label={'LD'} positions={LD} />
+      <Player label={'RD'} positions={RD} />
     </View>
   );
 }
@@ -175,5 +185,5 @@ const styles = StyleSheet.create({
   homeRightHashDot: {
     top: DEPTH_BEHIND_NET + HEIGHT_GOAL_LINE + (DEPTH_ZONE * 2) + (HEIGHT_BLUE_LINE * 2) + PADDING_ABOVE_TOP_CIRCLES + (HEIGHT_CIRCLE / 2) - (FACEOFF_DOT / 2),
     right: GUTTER + (HEIGHT_CIRCLE / 2) - (FACEOFF_DOT / 2),
-  }
+  },
 });
