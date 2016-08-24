@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,6 +6,7 @@ import {
 import { COLORS } from '../../styles/clrs';
 import Player from '../player/player';
 import Puck from '../puck/puck';
+import Button from '../button/button';
 import {
   LW,
   C,
@@ -27,47 +28,67 @@ const FACEOFF_DOT = 20;
 const PADDING_ABOVE_TOP_CIRCLES = (DEPTH_ZONE - HEIGHT_CIRCLE) / 2;
 const GUTTER = 20;
 
-function Breakout() {
+function Breakout(props) {
   return (
-    <View style={styles.ice}>
-      <View style={[styles.goalLine, styles.awayGoalLine]} />
-      <View style={[styles.goalLine, styles.homeGoalLine]} />
+    <View>
+      <View style={styles.ice}>
+        <View style={[styles.goalLine, styles.awayGoalLine]} />
+        <View style={[styles.goalLine, styles.homeGoalLine]} />
 
-      <View style={[styles.blueLine, styles.awayBlueLine]} />
-      <View style={[styles.blueLine, styles.homeBlueLine]} />
+        <View style={[styles.blueLine, styles.awayBlueLine]} />
+        <View style={[styles.blueLine, styles.homeBlueLine]} />
 
-      <View style={styles.centerIceCircle} />
-      <View style={styles.centerIceLine} />
-      <View style={styles.centerIceDot} />
+        <View style={styles.centerIceCircle} />
+        <View style={styles.centerIceLine} />
+        <View style={styles.centerIceDot} />
 
-      <View style={[styles.hashCircle, styles.awayLeftHashCircle]} />
-      <View style={[styles.hashCircle, styles.awayRightHashCircle]} />
+        <View style={[styles.hashCircle, styles.awayLeftHashCircle]} />
+        <View style={[styles.hashCircle, styles.awayRightHashCircle]} />
 
-      <View style={[styles.hashCircle, styles.homeLeftHashCircle]} />
-      <View style={[styles.hashCircle, styles.homeRightHashCircle]} />
+        <View style={[styles.hashCircle, styles.homeLeftHashCircle]} />
+        <View style={[styles.hashCircle, styles.homeRightHashCircle]} />
 
-      <View style={[styles.faceoffCircle, styles.awayLeftHashDot]} />
-      <View style={[styles.faceoffCircle, styles.awayRightHashDot]} />
-      <View style={[styles.faceoffCircle, styles.homeLeftHashDot]} />
-      <View style={[styles.faceoffCircle, styles.homeRightHashDot]} />
+        <View style={[styles.faceoffCircle, styles.awayLeftHashDot]} />
+        <View style={[styles.faceoffCircle, styles.awayRightHashDot]} />
+        <View style={[styles.faceoffCircle, styles.homeLeftHashDot]} />
+        <View style={[styles.faceoffCircle, styles.homeRightHashDot]} />
 
-      <Puck positions={PUCK} />
-      <Player label={'LW'} positions={LW} />
-      <Player label={'C'} positions={C} />
-      <Player label={'RW'} positions={RW} />
-      <Player label={'LD'} positions={LD} />
-      <Player label={'RD'} positions={RD} />
+        <Puck positions={PUCK} eventLength={props.eventLength} />
+        <Player label={'LW'} positions={LW} eventLength={props.eventLength} />
+        <Player label={'C'} positions={C} eventLength={props.eventLength} />
+        <Player label={'RW'} positions={RW} eventLength={props.eventLength} />
+        <Player label={'LD'} positions={LD} eventLength={props.eventLength} />
+        <Player label={'RD'} positions={RD} eventLength={props.eventLength} />
+      </View>
+
+      <View style={styles.buttonBar}>
+        <Button text={'Breakout 1'}
+          onPress={() => 1}
+        />
+        <Button text={'Breakout 2'}
+          onPress={() => 1}
+        />
+        <Button text={'Breakout 3'}
+          onPress={() => 1}
+        />
+      </View>
     </View>
   );
 }
 
 Breakout.propTypes = {
-
+  eventLength: PropTypes.number,
 };
 
 export default Breakout;
 
 const styles = StyleSheet.create({
+  buttonBar: {
+    marginTop: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
   ice: {
     borderWidth: 1,
     backgroundColor: COLORS.white,

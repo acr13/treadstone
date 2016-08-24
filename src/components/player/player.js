@@ -54,7 +54,7 @@ export default class Player extends Component {
         x: this.props.positions[idx].x,
         y: this.props.positions[idx].y,
       },
-      duration: 1000,
+      duration: this.props.eventLength,
       easing: Easing.inOut(Easing.ease),
     }).start(() => this.animatePoint(idx + 1));
   }
@@ -62,6 +62,7 @@ export default class Player extends Component {
 }
 
 Player.propTypes = {
+  eventLength: PropTypes.number,
   label: PropTypes.string,
   positions: PropTypes.array,
 };

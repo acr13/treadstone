@@ -6,19 +6,18 @@ import {
   Text,
   View,
 } from 'react-native';
-
-import { jumpTo } from '../../actions/navigator';
-import { SCENES } from '../../constants';
+import { List } from 'immutable';
 import { COLORS } from '../../styles/clrs';
 
 import FacebookTabBar from '../../components/tab-bar/tab-bar.js';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
+import Stats from '../../components/stats/stats';
 import Breakout from '../../components/breakout/breakout';
 
 const tabNames = ['Stats', 'Breakout', 'Net', 'PP', 'Settings'];
 
-function Home() {
+function Home(props) {
   return (
     <ScrollableTabView
       style={styles.container}
@@ -28,12 +27,10 @@ function Home() {
       renderTabBar={() => <FacebookTabBar tabNames={tabNames} />}
     >
       <ScrollView tabLabel="ios-paper" style={styles.tabView}>
-        <View style={styles.card}>
-          <Text>News</Text>
-        </View>
+        <Stats statList={props.statList} />
       </ScrollView>
       <ScrollView tabLabel="ios-people" style={styles.tabView}>
-        <Breakout />
+        <Breakout eventLength={props.eventLength} />
       </ScrollView>
       <ScrollView tabLabel="ios-chatboxes" style={styles.tabView}>
         <View style={styles.card}>
@@ -55,17 +52,19 @@ function Home() {
 }
 
 Home.propTypes = {
-  goToNextPageAction: PropTypes.func,
+  eventLength: PropTypes.number,
+  statList: PropTypes.instanceOf(List),
 };
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
   return {
-    goToNextPageAction: () => dispatch(jumpTo({ key: SCENES.SCENE_TWO })),
+    eventLength: state.breakouts.get('TIME_OF_EVENTS'),
+    statList: state.stats.get('statList'),
   };
 }
 
 export default connect(
-  () => ({}), mapDispatchToProps
+  mapStateToProps, () => ({})
 )(Home);
 
 const styles = StyleSheet.create({
