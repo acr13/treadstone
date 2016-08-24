@@ -14,6 +14,8 @@ import { COLORS } from '../../styles/clrs';
 import FacebookTabBar from '../../components/tab-bar/tab-bar.js';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
+import Breakout from '../../components/breakout/breakout';
+
 const tabNames = ['Stats', 'PK', 'Net', 'PP', 'Settings'];
 
 function Home() {
@@ -22,6 +24,7 @@ function Home() {
       style={styles.container}
       initialPage={1}
       tabBarPosition={'bottom'}
+      prerenderingSiblingsNumber={Infinity}
       renderTabBar={() => <FacebookTabBar tabNames={tabNames} />}
     >
       <ScrollView tabLabel="ios-paper" style={styles.tabView}>
@@ -30,9 +33,7 @@ function Home() {
         </View>
       </ScrollView>
       <ScrollView tabLabel="ios-people" style={styles.tabView}>
-        <View style={styles.card}>
-          <Text>Friends</Text>
-        </View>
+        <Breakout />
       </ScrollView>
       <ScrollView tabLabel="ios-chatboxes" style={styles.tabView}>
         <View style={styles.card}>
@@ -69,6 +70,7 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     marginTop: 20,
   },
   tabView: {

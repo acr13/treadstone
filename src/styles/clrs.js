@@ -17,4 +17,5 @@ export const COLORS = {
   darkBlue: '#212735',
   veryLightGray: 'rgba(0,0,0,0.01)',
   royalBlue: 'rgb(59,89,152)',
+  transparent: 'transparent',
 };
