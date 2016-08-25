@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { List } from 'immutable';
 import { COLORS } from '../../styles/clrs';
+import { apiFetchStats } from '../../actions/stats';
 
 import FacebookTabBar from '../../components/tab-bar/tab-bar.js';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -27,7 +28,10 @@ function Home(props) {
       renderTabBar={() => <FacebookTabBar tabNames={tabNames} />}
     >
       <ScrollView tabLabel="ios-paper" style={styles.tabView}>
-        <Stats statList={props.statList} />
+        <Stats
+          statList={props.statList}
+          actionFetchStats={props.actionFetchStats}
+        />
       </ScrollView>
       <ScrollView tabLabel="ios-people" style={styles.tabView}>
         <Breakout eventLength={props.eventLength} />
@@ -52,6 +56,7 @@ function Home(props) {
 }
 
 Home.propTypes = {
+  actionFetchStats: PropTypes.func,
   eventLength: PropTypes.number,
   statList: PropTypes.instanceOf(List),
 };
@@ -63,8 +68,15 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actionFetchStats: () => dispatch(apiFetchStats()),
+  };
+}
+
 export default connect(
-  mapStateToProps, () => ({})
+  mapStateToProps,
+  mapDispatchToProps
 )(Home);
 
 const styles = StyleSheet.create({

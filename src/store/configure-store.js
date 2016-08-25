@@ -1,13 +1,22 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import logger from './logger';
 import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers';
 import promiseMiddleware from '../middleware/promise-middleware';
 
+// sagas
+import statsSaga from '../sagas/stats';
+
+const sagaMiddleware = createSagaMiddleware();
+
 function configureStore(initialState) {
   const store = compose(
+    applyMiddleware(sagaMiddleware),
     applyMiddleware(...getMiddlewareWithLogger())
   )(createStore)(rootReducer, initialState);
+
+  sagaMiddleware.run(statsSaga);
 
   _enableHotLoader(store);
   return store;

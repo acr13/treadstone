@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import Immutable, { List } from 'immutable';
 import { COLORS } from '../../styles/clrs';
+import Button from '../button/button';
 
 export default class Stats extends Component {
 
@@ -22,12 +23,31 @@ export default class Stats extends Component {
     };
   }
 
+  componentWillReceiveProps(newProps) {
+    this.state = {
+      dataSource: this.state.dataSource.cloneWithRows(newProps.statList.toJS()),
+    };
+  }
+
+  _renderRow(rowData) {
+    return (
+      <Text>{rowData.playerName}</Text>
+    );
+  }
+
   render() {
     return (
-      <View style={styles.card}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text>{rowData}</Text>}
+      <View>
+        <View style={styles.card}>
+          <ListView
+            enableEmptySections
+            dataSource={this.state.dataSource}
+            renderRow={(rowData) => this._renderRow(rowData)}
+          />
+        </View>
+
+        <Button onPress={() => this.props.actionFetchStats()}
+          text={'Fetch'}
         />
       </View>
     );
@@ -36,6 +56,7 @@ export default class Stats extends Component {
 }
 
 Stats.propTypes = {
+  actionFetchStats: PropTypes.func,
   statList: PropTypes.instanceOf(List),
 };
 

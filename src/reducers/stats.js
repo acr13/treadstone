@@ -1,11 +1,20 @@
 import { fromJS } from 'immutable';
+import {
+  FETCH_STATS_SUCCESS,
+  // FETCH_STATS_FAIL,
+} from '../constants';
 
 const initialState = fromJS({
-  statList: [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,20],
+  statList: [],
 });
 
 function statsReducer(state = initialState, { type, payload }) {
   switch (type) {
+
+    case FETCH_STATS_SUCCESS:
+      return state.merge({
+        statList: payload.data,
+      });
 
     default:
       return state;
