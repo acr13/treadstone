@@ -11,6 +11,12 @@ export const PUSH_ROUTE = '@App/Navigator/PUSH_ROUTE';
 export const POP_ROUTE = '@App/Navigator/POP_ROUTE';
 export const JUMP_TO_ROUTE = '@App/Navigator/JUMP_TO_ROUTE';
 
+export const SWITCH_PLAY = '@App/Breakout/SWITCH_PLAY';
+export const SWITCH_EVENT_LENGTH = '@App/Breakout/SWITCH_EVENT_LENGTH';
+export const SWITCH_EVENT = '@App/Breakout/GET_NEXT_EVENT_ID';
+export const START_ANIMATION = '@App/Breakout/START_ANIMATION';
+export const STOP_ANIMATION = '@App/Breakout/STOP_ANIMATION';
+
 export const SCENES = {
   HOME: 'HOME',
   SCENE_TWO: 'SCENE_TWO',

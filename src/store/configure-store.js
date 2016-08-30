@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import logger from './logger';
-import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers';
 import promiseMiddleware from '../middleware/promise-middleware';
@@ -25,8 +24,6 @@ function configureStore(initialState) {
 export function getMiddleware() {
   return [
     promiseMiddleware,
-    thunk,
-    // epicMiddleware,
   ];
 }
 

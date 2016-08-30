@@ -27,13 +27,22 @@ export default class Player extends Component {
         y: this.props.positions[0].y,
       }),
     };
+    this.state.animation = this.generateAnimation();
   }
 
-  componentDidMount() {
-    this.animatePoint(1);
+  onAnimationFinish(event) {
+    if (event.finished) {
+      // reset positions
+    }
   }
 
   render() {
+    if (this.props.isAnimating) {
+      this.state.animation.start(this.onAnimationFinish);
+    } else {
+      this.state.animation.stop();
+    }
+
     return (
       <Animated.View style={[styles.player, {
         top: this.state.position.x,
@@ -44,19 +53,21 @@ export default class Player extends Component {
     );
   }
 
-  animatePoint(idx) {
-    if (idx > (this.props.positions.length - 1)) {
-      return;
+  generateAnimation() {
+    const animations = [];
+
+    for (let i = 1; i < this.props.positions.length; i++) {
+      animations.push(Animated.timing(this.state.position, {
+        toValue: {
+          x: this.props.positions[i].x,
+          y: this.props.positions[i].y,
+        },
+        duration: this.props.eventLength,
+        easing: Easing.inOut(Easing.ease),
+      }));
     }
 
-    Animated.timing(this.state.position, {
-      toValue: {
-        x: this.props.positions[idx].x,
-        y: this.props.positions[idx].y,
-      },
-      duration: this.props.eventLength,
-      easing: Easing.inOut(Easing.ease),
-    }).start(() => this.animatePoint(idx + 1));
+    return Animated.sequence(animations);
   }
 
 }
@@ -65,13 +76,12 @@ Player.propTypes = {
   eventLength: PropTypes.number,
   label: PropTypes.string,
   positions: PropTypes.array,
+  isAnimating: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
   player: {
     position: 'absolute',
-    top: 50,
-    left: 50,
     height: 20,
     width: 20,
     borderRadius: 10,

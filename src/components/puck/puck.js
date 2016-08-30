@@ -29,10 +29,14 @@ export default class Puck extends Component {
   }
 
   componentDidMount() {
-    this.animatePoint(1);
+
   }
 
   render() {
+    if (this.props.isAnimating) {
+      this.animatePoint(1);
+    }
+
     return (
       <Animated.View style={[styles.puck, {
         top: this.state.position.x,
@@ -43,6 +47,10 @@ export default class Puck extends Component {
 
   animatePoint(idx) {
     if (idx > (this.props.positions.length - 1)) {
+      return;
+    }
+
+    if (!this.props.isAnimating) {
       return;
     }
 
@@ -60,6 +68,7 @@ export default class Puck extends Component {
 
 Puck.propTypes = {
   eventLength: PropTypes.number,
+  isAnimating: PropTypes.bool,
   positions: PropTypes.array,
 };
 

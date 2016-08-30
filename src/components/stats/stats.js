@@ -29,9 +29,25 @@ export default class Stats extends Component {
     };
   }
 
+  _renderHeader() {
+    return (
+      <View style={styles.row}>
+        <Text>{'Name'}</Text>
+        <Text>{'SAT'}</Text>
+        <Text>{'SAT Rel%'}</Text>
+        <Text>{'SAT Rel60'}</Text>
+      </View>
+    );
+  }
+
   _renderRow(rowData) {
     return (
-      <Text>{rowData.playerName}</Text>
+      <View style={styles.row}>
+        <Text>{rowData.playerName}</Text>
+        <Text>{rowData.shotAttempts}</Text>
+        <Text>{rowData.shotAttemptsRelPctg}</Text>
+        <Text>{rowData.shotAttemptsRelPer60Minutes}</Text>
+      </View>
     );
   }
 
@@ -39,6 +55,7 @@ export default class Stats extends Component {
     return (
       <View>
         <View style={styles.card}>
+          { this._renderHeader() }
           <ListView
             enableEmptySections
             dataSource={this.state.dataSource}
@@ -71,5 +88,9 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

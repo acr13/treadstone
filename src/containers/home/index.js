@@ -9,12 +9,18 @@ import {
 import { List } from 'immutable';
 import { COLORS } from '../../styles/clrs';
 import { apiFetchStats } from '../../actions/stats';
+import {
+  actionStartAnimation,
+  actionStopAnimation,
+  actionSwitchBreakout
+} from '../../actions/breakout';
 
 import FacebookTabBar from '../../components/tab-bar/tab-bar.js';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import Stats from '../../components/stats/stats';
 import Breakout from '../../components/breakout/breakout';
+import PowerPlay from '../../components/powerplay/powerplay';
 
 const tabNames = ['Stats', 'Breakout', 'Net', 'PP', 'Settings'];
 
@@ -33,19 +39,28 @@ function Home(props) {
           actionFetchStats={props.actionFetchStats}
         />
       </ScrollView>
+
       <ScrollView tabLabel="ios-people" style={styles.tabView}>
-        <Breakout eventLength={props.eventLength} />
+        <Breakout eventLength={props.eventLength}
+          actionStartAnimation={props.actionStartAnimation}
+          actionStopAnimation={props.actionStopAnimation}
+          actionSwitchBreakout={props.actionSwitchBreakout}
+          play={props.breakoutPlay}
+          plays={props.breakoutPlays}
+          isBreakoutAnimating={props.isBreakoutAnimating}
+        />
       </ScrollView>
+
       <ScrollView tabLabel="ios-chatboxes" style={styles.tabView}>
-        <View style={styles.card}>
-          <Text>Messenger</Text>
-        </View>
+        <PowerPlay eventLength={props.eventLength} />
       </ScrollView>
+
       <ScrollView tabLabel="ios-notifications" style={styles.tabView}>
         <View style={styles.card}>
           <Text>Notifications</Text>
         </View>
       </ScrollView>
+
       <ScrollView tabLabel="ios-list" style={styles.tabView}>
         <View style={styles.card}>
           <Text>Other nav</Text>
@@ -57,13 +72,22 @@ function Home(props) {
 
 Home.propTypes = {
   actionFetchStats: PropTypes.func,
+  actionStartAnimation: PropTypes.func,
+  actionStopAnimation: PropTypes.func,
+  actionSwitchBreakout: PropTypes.func,
+  breakoutPlay: PropTypes.string,
+  breakoutPlays: PropTypes.instanceOf(List),
   eventLength: PropTypes.number,
+  isBreakoutAnimating: PropTypes.bool,
   statList: PropTypes.instanceOf(List),
 };
 
 function mapStateToProps(state) {
   return {
     eventLength: state.breakouts.get('TIME_OF_EVENTS'),
+    breakoutPlay: state.breakouts.get('currentPlay'),
+    breakoutPlays: state.breakouts.get('plays'),
+    isBreakoutAnimating: state.breakouts.get('isAnimating'),
     statList: state.stats.get('statList'),
   };
 }
@@ -71,6 +95,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actionFetchStats: () => dispatch(apiFetchStats()),
+    actionStartAnimation: () => dispatch(actionStartAnimation()),
+    actionStopAnimation: () => dispatch(actionStopAnimation()),
+    actionSwitchBreakout: (play) => dispatch(actionSwitchBreakout(play)),
+    actionSwitchEvent: (eventNum) => dispatch(actionSwitchEvent(eventNum)),
   };
 }
 

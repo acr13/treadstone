@@ -9,5 +9,6 @@ export function get(url) {
 
 
 export function fetchStats() {
-  return get('http://www.nhl.com/stats/rest/grouped/skaters/enhanced/season/skatersummaryshooting?cayenneExp=seasonId=20152016%20and%20gameTypeId=2');
+  return get('http://www.nhl.com/stats/rest/grouped/skaters/enhanced/season/skatersummaryshooting?'
+    + 'cayenneExp=seasonId=20152016%20and%20gameTypeId=2%20and%20teamId=10');
 }
