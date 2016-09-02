@@ -30,19 +30,29 @@ export default class Player extends Component {
     this.state.animation = this.generateAnimation();
   }
 
+  componentWillMount() {
+    // console.log('will mount');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // new play
+    if (nextProps.play !== this.props.play) {
+      this.state.position = new Animated.ValueXY({
+        x: this.props.positions[0].x,
+        y: this.props.positions[0].y,
+      });
+    }
+
+    this.startAnimation();
+  }
+
   onAnimationFinish(event) {
     if (event.finished) {
-      // reset positions
+      this.startAnimation();
     }
   }
 
   render() {
-    if (this.props.isAnimating) {
-      this.state.animation.start(this.onAnimationFinish);
-    } else {
-      this.state.animation.stop();
-    }
-
     return (
       <Animated.View style={[styles.player, {
         top: this.state.position.x,
@@ -56,7 +66,7 @@ export default class Player extends Component {
   generateAnimation() {
     const animations = [];
 
-    for (let i = 1; i < this.props.positions.length; i++) {
+    for (let i = 0; i < this.props.positions.length; i++) {
       animations.push(Animated.timing(this.state.position, {
         toValue: {
           x: this.props.positions[i].x,
@@ -70,11 +80,18 @@ export default class Player extends Component {
     return Animated.sequence(animations);
   }
 
+  startAnimation() {
+    this.state.animation = null;
+    this.state.animation = this.generateAnimation();
+    this.state.animation.start((evt) => this.onAnimationFinish(evt));
+  }
+
 }
 
 Player.propTypes = {
   eventLength: PropTypes.number,
   label: PropTypes.string,
+  play: PropTypes.string,
   positions: PropTypes.array,
   isAnimating: PropTypes.bool,
 };

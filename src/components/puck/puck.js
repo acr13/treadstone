@@ -28,15 +28,29 @@ export default class Puck extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    // console.log('will mount');
+  }
 
+  componentWillReceiveProps(nextProps) {
+    // new play
+    if (nextProps.play !== this.props.play) {
+      this.state.position = new Animated.ValueXY({
+        x: this.props.positions[0].x,
+        y: this.props.positions[0].y,
+      });
+    }
+
+    this.startAnimation();
+  }
+
+  onAnimationFinish(event) {
+    if (event.finished) {
+      this.startAnimation();
+    }
   }
 
   render() {
-    if (this.props.isAnimating) {
-      this.animatePoint(1);
-    }
-
     return (
       <Animated.View style={[styles.puck, {
         top: this.state.position.x,
@@ -45,23 +59,27 @@ export default class Puck extends Component {
     );
   }
 
-  animatePoint(idx) {
-    if (idx > (this.props.positions.length - 1)) {
-      return;
+  generateAnimation() {
+    const animations = [];
+
+    for (let i = 0; i < this.props.positions.length; i++) {
+      animations.push(Animated.timing(this.state.position, {
+        toValue: {
+          x: this.props.positions[i].x,
+          y: this.props.positions[i].y,
+        },
+        duration: this.props.eventLength,
+        easing: Easing.inOut(Easing.ease),
+      }));
     }
 
-    if (!this.props.isAnimating) {
-      return;
-    }
+    return Animated.sequence(animations);
+  }
 
-    Animated.timing(this.state.position, {
-      toValue: {
-        x: this.props.positions[idx].x,
-        y: this.props.positions[idx].y,
-      },
-      duration: this.props.eventLength,
-      easing: Easing.inOut(Easing.ease),
-    }).start(() => this.animatePoint(idx + 1));
+  startAnimation() {
+    this.state.animation = null;
+    this.state.animation = this.generateAnimation();
+    this.state.animation.start((evt) => this.onAnimationFinish(evt));
   }
 
 }
@@ -69,6 +87,7 @@ export default class Puck extends Component {
 Puck.propTypes = {
   eventLength: PropTypes.number,
   isAnimating: PropTypes.bool,
+  play: PropTypes.string,
   positions: PropTypes.array,
 };
 

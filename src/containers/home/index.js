@@ -10,9 +10,7 @@ import { List } from 'immutable';
 import { COLORS } from '../../styles/clrs';
 import { apiFetchStats } from '../../actions/stats';
 import {
-  actionStartAnimation,
-  actionStopAnimation,
-  actionSwitchBreakout
+  actionSwitchBreakout,
 } from '../../actions/breakout';
 
 import FacebookTabBar from '../../components/tab-bar/tab-bar.js';
@@ -30,7 +28,6 @@ function Home(props) {
       style={styles.container}
       initialPage={1}
       tabBarPosition={'bottom'}
-      prerenderingSiblingsNumber={Infinity}
       renderTabBar={() => <FacebookTabBar tabNames={tabNames} />}
     >
       <ScrollView tabLabel="ios-paper" style={styles.tabView}>

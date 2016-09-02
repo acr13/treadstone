@@ -24,52 +24,46 @@ function Breakout(props) {
 
       <Puck positions={PUCK}
         eventLength={props.eventLength}
-        play={props.breakoutPlay}
+        play={props.play}
         isAnimating={props.isBreakoutAnimating}
       />
       <Player label={'LW'}
         positions={LW}
         eventLength={props.eventLength}
-        play={props.breakoutPlay}
+        play={props.play}
         isAnimating={props.isBreakoutAnimating}
       />
       <Player label={'C'}
         positions={C}
         eventLength={props.eventLength}
-        play={props.breakoutPlay}
+        play={props.play}
         isAnimating={props.isBreakoutAnimating}
       />
       <Player label={'RW'}
         positions={RW}
         eventLength={props.eventLength}
-        play={props.breakoutPlay}
+        play={props.play}
         isAnimating={props.isBreakoutAnimating}
       />
       <Player label={'LD'}
         positions={LD}
         eventLength={props.eventLength}
-        play={props.breakoutPlay}
+        play={props.play}
         isAnimating={props.isBreakoutAnimating}
       />
       <Player label={'RD'}
         positions={RD}
         eventLength={props.eventLength}
-        play={props.breakoutPlay}
+        play={props.play}
         isAnimating={props.isBreakoutAnimating}
       />
 
       <View style={styles.buttonBar}>
         {props.plays.map((play) => {
-          console.log('animating', props.isBreakoutAnimating);
           return (
-            <Button text={'Breakout 1'}
+            <Button text={'Breakout ' + play}
               key={play}
-              onPress={() => {
-                // props.actionStopAnimation();
-                props.actionSwitchBreakout('1');
-                props.actionStartAnimation();
-              }}
-              disabled={props.isBreakoutAnimating}
+              onPress={() => props.actionSwitchBreakout(play)}
             />
           );
         })}
@@ -85,8 +79,8 @@ Breakout.propTypes = {
   actionStartAnimation: PropTypes.func,
   actionStopAnimation: PropTypes.func,
   eventLength: PropTypes.number,
-  breakoutPlay: PropTypes.string,
   isBreakoutAnimating: PropTypes.bool,
+  play: PropTypes.string,
   plays: PropTypes.instanceOf(List),
 };
 

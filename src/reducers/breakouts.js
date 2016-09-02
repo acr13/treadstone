@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 
 const initialState = fromJS({
   TIME_OF_EVENTS: 1000,
-  currentPlay: '1',
+  currentPlay: '',
   currentEvent: 1,
   isAnimating: false,
   plays: ['1', '2', '3'],
