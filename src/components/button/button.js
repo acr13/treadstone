@@ -40,7 +40,7 @@ export default Button;
 const styles = StyleSheet.create({
   button: {
     backgroundColor: COLORS.white,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 5,
     justifyContent: 'center',
     alignItems: 'center',

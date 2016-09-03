@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 import { COLORS } from '../../styles/clrs';
 
-const HEIGHT_ICE = 500;
-const WIDTH_ICE = 345;
+const HEIGHT_ICE = 400;
+const WIDTH_ICE = 290;
 const DEPTH_BEHIND_NET = 45;
 const HEIGHT_GOAL_LINE = 3;
 const HEIGHT_BLUE_LINE = 5;

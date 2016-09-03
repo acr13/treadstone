@@ -18,15 +18,16 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import Stats from '../../components/stats/stats';
 import Breakout from '../../components/breakout/breakout';
-import PowerPlay from '../../components/powerplay/powerplay';
+// import PowerPlay from '../../components/powerplay/powerplay';
+import GoalLocation from '../../components/goal-location/';
 
-const tabNames = ['Stats', 'Breakout', 'Net', 'PP', 'Settings'];
+const tabNames = ['Stats', 'Breakout', 'Shots', 'Goals', 'Settings'];
 
 function Home(props) {
   return (
     <ScrollableTabView
       style={styles.container}
-      initialPage={1}
+      initialPage={3}
       tabBarPosition={'bottom'}
       renderTabBar={() => <FacebookTabBar tabNames={tabNames} />}
     >
@@ -48,18 +49,18 @@ function Home(props) {
         />
       </ScrollView>
 
-      <ScrollView tabLabel="ios-chatboxes" style={styles.tabView}>
-        <PowerPlay eventLength={props.eventLength} />
-      </ScrollView>
+      <ScrollView tabLabel="ios-chatboxes" style={styles.tabView} />
 
       <ScrollView tabLabel="ios-notifications" style={styles.tabView}>
-        <View style={styles.card}>
-          <Text>Notifications</Text>
-        </View>
+        <GoalLocation
+          goals={props.goalPctg}
+        />
       </ScrollView>
 
       <ScrollView tabLabel="ios-list" style={styles.tabView}>
-        <View style={styles.card}>
+        <View style={styles.card}
+          actionSwitchTeam={props.actionSwitchTeam}
+        >
           <Text>Other nav</Text>
         </View>
       </ScrollView>
@@ -72,9 +73,11 @@ Home.propTypes = {
   actionStartAnimation: PropTypes.func,
   actionStopAnimation: PropTypes.func,
   actionSwitchBreakout: PropTypes.func,
+  actionSwitchTeam: PropTypes.func,
   breakoutPlay: PropTypes.string,
   breakoutPlays: PropTypes.instanceOf(List),
   eventLength: PropTypes.number,
+  goalPctg: PropTypes.object,
   isBreakoutAnimating: PropTypes.bool,
   statList: PropTypes.instanceOf(List),
 };
@@ -86,6 +89,7 @@ function mapStateToProps(state) {
     breakoutPlays: state.breakouts.get('plays'),
     isBreakoutAnimating: state.breakouts.get('isAnimating'),
     statList: state.stats.get('statList'),
+    goalPctg: state.goals.get('rates'),
   };
 }
 
@@ -96,6 +100,7 @@ function mapDispatchToProps(dispatch) {
     actionStopAnimation: () => dispatch(actionStopAnimation()),
     actionSwitchBreakout: (play) => dispatch(actionSwitchBreakout(play)),
     actionSwitchEvent: (eventNum) => dispatch(actionSwitchEvent(eventNum)),
+    actionSwitchTeam: (team) => dispatch(actionSwitchTeam(team)),
   };
 }
 

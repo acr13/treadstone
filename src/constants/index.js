@@ -17,6 +17,8 @@ export const SWITCH_EVENT = '@App/Breakout/GET_NEXT_EVENT_ID';
 export const START_ANIMATION = '@App/Breakout/START_ANIMATION';
 export const STOP_ANIMATION = '@App/Breakout/STOP_ANIMATION';
 
+export const SWITCH_TEAM = '@App/Goals/SWITCH_TEAM';
+
 export const SCENES = {
   HOME: 'HOME',
   SCENE_TWO: 'SCENE_TWO',
