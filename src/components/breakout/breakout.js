@@ -76,8 +76,6 @@ function Breakout(props) {
 
 Breakout.propTypes = {
   actionSwitchBreakout: PropTypes.func,
-  actionStartAnimation: PropTypes.func,
-  actionStopAnimation: PropTypes.func,
   eventLength: PropTypes.number,
   isBreakoutAnimating: PropTypes.bool,
   play: PropTypes.string,

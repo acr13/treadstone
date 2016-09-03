@@ -79,7 +79,7 @@ export default class Puck extends Component {
   startAnimation() {
     this.state.animation = null;
     this.state.animation = this.generateAnimation();
-    this.state.animation.start((evt) => this.onAnimationFinish(evt));
+    this.state.animation.start(); //(evt) => this.onAnimationFinish(evt));
   }
 
 }

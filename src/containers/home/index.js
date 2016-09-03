@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import {
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { List } from 'immutable';
 import { COLORS } from '../../styles/clrs';
 import { apiFetchStats } from '../../actions/stats';
+import { actionSwitchTeam } from '../../actions/settings';
 import {
   actionSwitchBreakout,
 } from '../../actions/breakout';
@@ -18,8 +18,8 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import Stats from '../../components/stats/stats';
 import Breakout from '../../components/breakout/breakout';
-// import PowerPlay from '../../components/powerplay/powerplay';
 import GoalLocation from '../../components/goal-location/';
+import Settings from '../../components/settings';
 
 const tabNames = ['Stats', 'Breakout', 'Shots', 'Goals', 'Settings'];
 
@@ -27,7 +27,7 @@ function Home(props) {
   return (
     <ScrollableTabView
       style={styles.container}
-      initialPage={3}
+      initialPage={1}
       tabBarPosition={'bottom'}
       renderTabBar={() => <FacebookTabBar tabNames={tabNames} />}
     >
@@ -40,8 +40,6 @@ function Home(props) {
 
       <ScrollView tabLabel="ios-people" style={styles.tabView}>
         <Breakout eventLength={props.eventLength}
-          actionStartAnimation={props.actionStartAnimation}
-          actionStopAnimation={props.actionStopAnimation}
           actionSwitchBreakout={props.actionSwitchBreakout}
           play={props.breakoutPlay}
           plays={props.breakoutPlays}
@@ -57,21 +55,17 @@ function Home(props) {
         />
       </ScrollView>
 
-      <ScrollView tabLabel="ios-list" style={styles.tabView}>
-        <View style={styles.card}
+      <View tabLabel="ios-list" style={styles.view}>
+        <Settings
           actionSwitchTeam={props.actionSwitchTeam}
-        >
-          <Text>Other nav</Text>
-        </View>
-      </ScrollView>
+          selectedTeam={props.selectedTeam} />
+      </View>
     </ScrollableTabView>
   );
 }
 
 Home.propTypes = {
   actionFetchStats: PropTypes.func,
-  actionStartAnimation: PropTypes.func,
-  actionStopAnimation: PropTypes.func,
   actionSwitchBreakout: PropTypes.func,
   actionSwitchTeam: PropTypes.func,
   breakoutPlay: PropTypes.string,
@@ -80,6 +74,7 @@ Home.propTypes = {
   goalPctg: PropTypes.object,
   isBreakoutAnimating: PropTypes.bool,
   statList: PropTypes.instanceOf(List),
+  selectedTeam: PropTypes.number,
 };
 
 function mapStateToProps(state) {
@@ -90,16 +85,14 @@ function mapStateToProps(state) {
     isBreakoutAnimating: state.breakouts.get('isAnimating'),
     statList: state.stats.get('statList'),
     goalPctg: state.goals.get('rates'),
+    selectedTeam: state.settings.get('selectedTeam'),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actionFetchStats: () => dispatch(apiFetchStats()),
-    actionStartAnimation: () => dispatch(actionStartAnimation()),
-    actionStopAnimation: () => dispatch(actionStopAnimation()),
     actionSwitchBreakout: (play) => dispatch(actionSwitchBreakout(play)),
-    actionSwitchEvent: (eventNum) => dispatch(actionSwitchEvent(eventNum)),
     actionSwitchTeam: (team) => dispatch(actionSwitchTeam(team)),
   };
 }
@@ -119,16 +112,8 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: COLORS.veryLightGray,
   },
-  card: {
-    borderWidth: 1,
-    backgroundColor: COLORS.white,
-    borderColor: COLORS.veryLightGray,
-    margin: 5,
-    height: 150,
-    padding: 15,
-    shadowColor: COLORS.gray,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
+  view: {
+    flex: 1,
+    backgroundColor: COLORS.veryLightGray,
   },
 });
