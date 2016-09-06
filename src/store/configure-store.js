@@ -6,6 +6,7 @@ import promiseMiddleware from '../middleware/promise-middleware';
 
 // sagas
 import statsSaga from '../sagas/stats';
+import gamesSaga from '../sagas/games';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -16,6 +17,7 @@ function configureStore(initialState) {
   )(createStore)(rootReducer, initialState);
 
   sagaMiddleware.run(statsSaga);
+  sagaMiddleware.run(gamesSaga);
 
   _enableHotLoader(store);
   return store;

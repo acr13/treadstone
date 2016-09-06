@@ -4,6 +4,7 @@ import breakouts from './breakouts';
 import stats from './stats';
 import goals from './goals';
 import settings from './settings';
+import game from './game';
 
 const rootReducer = combineReducers({
   navigator,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   stats,
   goals,
   settings,
+  game,
 });
 
 export default rootReducer;

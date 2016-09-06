@@ -8,6 +8,7 @@ import {
 import { List } from 'immutable';
 import { COLORS } from '../../styles/clrs';
 import { apiFetchStats } from '../../actions/stats';
+import { apiFetchGame } from '../../actions/game';
 import { actionSwitchTeam } from '../../actions/settings';
 import {
   actionSwitchBreakout,
@@ -18,16 +19,18 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import Stats from '../../components/stats/stats';
 import Breakout from '../../components/breakout/breakout';
-import GoalLocation from '../../components/goal-location/';
+import GoalLocation from '../../components/goal-location';
+import ShotLocation from '../../components/shot-location';
 import Settings from '../../components/settings';
 
 const tabNames = ['Stats', 'Breakout', 'Shots', 'Goals', 'Settings'];
 
 function Home(props) {
+  console.log(props.shots);
   return (
     <ScrollableTabView
       style={styles.container}
-      initialPage={1}
+      initialPage={2}
       tabBarPosition={'bottom'}
       renderTabBar={() => <FacebookTabBar tabNames={tabNames} />}
     >
@@ -47,7 +50,12 @@ function Home(props) {
         />
       </ScrollView>
 
-      <ScrollView tabLabel="ios-chatboxes" style={styles.tabView} />
+      <View tabLabel="ios-chatboxes" style={styles.tabView}>
+        <ShotLocation
+          actionFetchGame={props.actionFetchGame}
+          shots={props.shots}
+        />
+      </View>
 
       <ScrollView tabLabel="ios-notifications" style={styles.tabView}>
         <GoalLocation
@@ -65,6 +73,7 @@ function Home(props) {
 }
 
 Home.propTypes = {
+  actionFetchGame: PropTypes.func,
   actionFetchStats: PropTypes.func,
   actionSwitchBreakout: PropTypes.func,
   actionSwitchTeam: PropTypes.func,
@@ -75,6 +84,7 @@ Home.propTypes = {
   isBreakoutAnimating: PropTypes.bool,
   statList: PropTypes.instanceOf(List),
   selectedTeam: PropTypes.number,
+  shots: PropTypes.instanceOf(List),
 };
 
 function mapStateToProps(state) {
@@ -86,11 +96,13 @@ function mapStateToProps(state) {
     statList: state.stats.get('statList'),
     goalPctg: state.goals.get('rates'),
     selectedTeam: state.settings.get('selectedTeam'),
+    shots: state.game.get('shots'),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    actionFetchGame: (gameId) => dispatch(apiFetchGame(gameId)),
     actionFetchStats: () => dispatch(apiFetchStats()),
     actionSwitchBreakout: (play) => dispatch(actionSwitchBreakout(play)),
     actionSwitchTeam: (team) => dispatch(actionSwitchTeam(team)),

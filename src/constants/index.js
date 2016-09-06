@@ -6,6 +6,9 @@ export const REQUEST_FAIL = '@App/REQUEST_FAIL';
 export const FETCH_STATS_REQUEST = '@App/API/FETCH_STATS_REQUEST';
 export const FETCH_STATS_SUCCESS = '@App/API/FETCH_STATS_SUCCESS';
 export const FETCH_STATS_FAIL = '@App/API/FETCH_STATS_FAIL';
+export const FETCH_GAME_REQUEST = '@App/API/FETCH_GAME_REQUEST';
+export const FETCH_GAME_SUCCESS = '@App/API/FETCH_GAME_SUCCESS';
+export const FETCH_GAME_FAIL = '@App/API/FETCH_GAME_FAIL';
 
 export const PUSH_ROUTE = '@App/Navigator/PUSH_ROUTE';
 export const POP_ROUTE = '@App/Navigator/POP_ROUTE';
