@@ -7,7 +7,7 @@ import { COLORS } from '../../styles/clrs';
 
 const HEIGHT_ICE = 400;
 const WIDTH_ICE = 290;
-const DEPTH_BEHIND_NET = 45;
+const DEPTH_BEHIND_NET = 25;
 const HEIGHT_GOAL_LINE = 3;
 const HEIGHT_BLUE_LINE = 5;
 const DEPTH_ZONE = (HEIGHT_ICE - (DEPTH_BEHIND_NET * 2) - (HEIGHT_GOAL_LINE * 2) - (HEIGHT_BLUE_LINE * 2)) / 3;
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: COLORS.white,
     borderColor: COLORS.veryLightGray,
-    borderRadius: 50,
+    borderRadius: 20,
     margin: 5,
     height: HEIGHT_ICE,
     width: WIDTH_ICE,

@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "immutable": "3.8.1",
+    "jsonfile": "^2.3.1",
     "ramda": "0.22.1",
     "react": "15.2.1",
     "react-native": "0.31.0",
@@ -16,7 +17,10 @@
     "react-redux": "4.4.5",
     "redux": "3.5.2",
     "redux-logger": "2.6.1",
-    "redux-saga": "0.11.0"
+    "redux-saga": "0.11.0",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.1",
+    "reselect": "^2.5.3"
   },
   "devDependencies": {
     "babel-core": "6.13.2",

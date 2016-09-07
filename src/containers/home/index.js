@@ -10,6 +10,7 @@ import { COLORS } from '../../styles/clrs';
 import { apiFetchStats } from '../../actions/stats';
 import { apiFetchGame } from '../../actions/game';
 import { actionSwitchTeam } from '../../actions/settings';
+import { getShots } from '../../selectors/shots';
 import {
   actionSwitchBreakout,
 } from '../../actions/breakout';
@@ -26,7 +27,6 @@ import Settings from '../../components/settings';
 const tabNames = ['Stats', 'Breakout', 'Shots', 'Goals', 'Settings'];
 
 function Home(props) {
-  console.log(props.shots);
   return (
     <ScrollableTabView
       style={styles.container}
@@ -52,7 +52,6 @@ function Home(props) {
 
       <View tabLabel="ios-chatboxes" style={styles.tabView}>
         <ShotLocation
-          actionFetchGame={props.actionFetchGame}
           shots={props.shots}
         />
       </View>
@@ -84,7 +83,6 @@ Home.propTypes = {
   isBreakoutAnimating: PropTypes.bool,
   statList: PropTypes.instanceOf(List),
   selectedTeam: PropTypes.number,
-  shots: PropTypes.instanceOf(List),
 };
 
 function mapStateToProps(state) {
@@ -96,7 +94,7 @@ function mapStateToProps(state) {
     statList: state.stats.get('statList'),
     goalPctg: state.goals.get('rates'),
     selectedTeam: state.settings.get('selectedTeam'),
-    shots: state.game.get('shots'),
+    shots: getShots(state),
   };
 }
 
