@@ -4,7 +4,7 @@ import {
 import { fromJS } from 'immutable';
 
 const initialState = fromJS({
-  selectedTeam: 28,
+  selectedTeam: 10,
 });
 
 function goalsReducer(state = initialState, { type, payload }) {

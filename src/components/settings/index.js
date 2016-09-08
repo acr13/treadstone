@@ -15,9 +15,9 @@ function Settings(props) {
           selectedValue={props.selectedTeam}
           onValueChange={(team) => props.actionSwitchTeam(team)}
         >
-          <Picker.Item label="Toronto Maple Leafs" value={1}/>
-          <Picker.Item label="Boston Bruins" value={2}/>
-          <Picker.Item label="Detroit Red Wings" value={3}/>
+          <Picker.Item label="Toronto Maple Leafs" value={10}/>
+          <Picker.Item label="Boston Bruins" value={6}/>
+          <Picker.Item label="Detroit Red Wings" value={17}/>
         </Picker>
       </View>
     </View>
