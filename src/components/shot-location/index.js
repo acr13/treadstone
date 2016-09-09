@@ -3,7 +3,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import Svg, { Polygon } from 'react-native-svg';
+import Svg, { Circle } from 'react-native-svg';
 
 import Ice from '../ice/ice';
 
@@ -28,14 +28,40 @@ export default class ShotLocation extends React.Component {
     return { x: destX, y: destY};
   }
 
+  _getColorStyle(n) {
+    let c = 'blue';
+    let opc = 0.2;
+
+    if (n > 10) {
+      c = 'red';
+      opc = 0.9;
+    } else if (n > 7) {
+      c = 'yellow';
+      opc = 0.8;
+    } else if (n > 4) {
+      c = 'lime';
+      opc = 0.7;
+    } else if (n > 2) {
+      c = 'cyan';
+      opc = 0.4;
+    }
+
+    return { backgroundColor: c, opacity: opc};
+  }
+
   renderShots() {
     return this.props.shots.map((shot, idx) => {
       const pt = this._convertPt(shot.coordinates);
+      const colorStyle = this._getColorStyle(shot.count);
 
       return (
-        <View
+        <Circle
           key={idx}
-          style={[styles.abs, styles.shot, {top: pt.x, left: pt.y}]}
+          cx={pt.y}
+          cy={pt.x}
+          r="10"
+          fill={colorStyle.backgroundColor}
+          fillOpacity={colorStyle.opacity}
         />
       );
     });
@@ -47,9 +73,13 @@ export default class ShotLocation extends React.Component {
     return (
       <View>
         <Ice />
-        <View style={[styles.abs, styles.tl5]}>
+        <Svg
+          style={[styles.abs, styles.tl5]}
+          height="400"
+          width="400"
+        >
           { shots }
-        </View>
+        </Svg>
       </View>
     );
   }
@@ -72,9 +102,9 @@ const styles = StyleSheet.create({
     left: 5,
   },
   shot: {
-    height: 5,
-    width: 5,
-    borderRadius: 2.5,
+    height: 15,
+    width: 15,
+    // borderRadius: 7.5,
     backgroundColor: '#000',
   },
 });
