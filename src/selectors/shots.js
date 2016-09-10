@@ -44,8 +44,6 @@ export const getShots = createSelector(
       }
     });
 
-    console.log(shots.length);
-
     return shots;
   }
 );

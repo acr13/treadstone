@@ -11,6 +11,7 @@ import { apiFetchStats } from '../../actions/stats';
 import { apiFetchGame } from '../../actions/game';
 import { actionSwitchTeam } from '../../actions/settings';
 import { getShots } from '../../selectors/shots';
+import { getGoals } from '../../selectors/goals';
 import {
   actionSwitchBreakout,
 } from '../../actions/breakout';
@@ -30,7 +31,7 @@ function Home(props) {
   return (
     <ScrollableTabView
       style={styles.container}
-      initialPage={2}
+      initialPage={3}
       tabBarPosition={'bottom'}
       renderTabBar={() => <FacebookTabBar tabNames={tabNames} />}
     >
@@ -58,7 +59,7 @@ function Home(props) {
 
       <ScrollView tabLabel="ios-notifications" style={styles.tabView}>
         <GoalLocation
-          goals={props.goalPctg}
+          goals={props.goals}
         />
       </ScrollView>
 
@@ -93,6 +94,7 @@ function mapStateToProps(state) {
     isBreakoutAnimating: state.breakouts.get('isAnimating'),
     statList: state.stats.get('statList'),
     goalPctg: state.goals.get('rates'),
+    goals: getGoals(state),
     selectedTeam: state.settings.get('selectedTeam'),
     shots: getShots(state),
   };

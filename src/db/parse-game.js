@@ -2,9 +2,16 @@ const rp = require('request-promise');
 const fs = require('fs');
 
 let GAMES_SAVED = 0;
-const GAMES_SAVE_MAX = 50;
+const GAMES_SAVE_MAX = 100;
 const FILE_TO_SAVE = './db.json';
 const GAMES_TO_SAVE = [];
+
+const SUPPORTED_EVENTS = {
+  'MISSED_SHOT': 1,
+  'BLOCKED_SHOT': 1,
+  'SHOT': 1,
+  'GOAL': 1,
+};
 
 function leftPad(s) {
   s = s + '';
@@ -31,10 +38,7 @@ function saveDbToFile() {
 }
 
 function getJsonForGameId(id) {
-
   paddedId = leftPad(id);
-
-  console.log(id, paddedId);
 
   return rp('http://statsapi.web.nhl.com/api/v1/game/201502 ' + paddedId + '/feed/live')
     .then((jsonString) => JSON.parse(jsonString))
@@ -43,7 +47,7 @@ function getJsonForGameId(id) {
         GAMES_TO_SAVE.push({
           homeTeamId: json.gameData.teams.home.id,
           awayTeamId: json.gameData.teams.away.id,
-          shots: json.liveData.plays.allPlays.filter((play) => play.result.eventTypeId === 'SHOT'),
+          shots: json.liveData.plays.allPlays.filter((play) => SUPPORTED_EVENTS[play.result.eventTypeId]),
         });
         GAMES_SAVED++;
       }
@@ -56,7 +60,7 @@ function fetch(gameId) {
   getJsonForGameId(gameId)
     .then((status) => {
       console.log('status', status, GAMES_SAVED);
-      if (GAMES_SAVED === 50) {
+      if (GAMES_SAVED === GAMES_SAVE_MAX) {
         saveDbToFile();
         process.exit();
       } else {

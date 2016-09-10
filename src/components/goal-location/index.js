@@ -11,6 +11,10 @@ import Ice from '../ice/ice';
 export default class GoalLocation extends React.Component {
 
   _renderPctg(num) {
+    if (isNaN(num)) {
+      return 0 + '%';
+    }
+
     return (num * 100).toFixed() + '%';
   }
 
@@ -24,21 +28,21 @@ export default class GoalLocation extends React.Component {
           width="350"
         >
           <Polygon
-            points="5,47 285,47 285,160 5,160"
+            points="5,27 285,27 285,160 5,160"
             fill="blue"
             fillOpacity="0.3"
             stroke="black"
             strokeWidth="1"
           />
           <Polygon
-            points="60,47 230,47 230,120, 200,140, 90,140, 60,120"
+            points="60,27 230,27 230,120, 200,140, 90,140, 60,120"
             fill="lime"
             fillOpacity="0.4"
             stroke="black"
             strokeWidth="1"
           />
           <Polygon
-            points="80,47 210,47 210,100, 200,110, 90,110, 80,100"
+            points="80,27 210,27 210,100, 200,110, 90,110, 80,100"
             fill="red"
             fillOpacity="0.6"
             stroke="purple"
@@ -46,21 +50,21 @@ export default class GoalLocation extends React.Component {
           />
 
           <Polygon
-            points="5,245 285,245 285,357 5,357"
+            points="5,245 285,245 285,377 5,377"
             fill="blue"
             fillOpacity="0.3"
             stroke="black"
             strokeWidth="1"
           />
           <Polygon
-            points="60,284 90,264, 200,264 230,284 230,357 60,357"
+            points="60,284 90,262, 200,262 230,284 230,377 60,377"
             fill="lime"
             fillOpacity="0.4"
             stroke="black"
             strokeWidth="1"
           />
           <Polygon
-            points="80,310 90,300 200,300 210,310 210,357 80,357"
+            points="80,304 90,294 200,294 210,304 210,377 80,377"
             fill="red"
             fillOpacity="0.6"
             stroke="purple"
@@ -68,12 +72,12 @@ export default class GoalLocation extends React.Component {
           />
         </Svg>
 
-        <Text style={[styles.abs, styles.offHigh]}>{this._renderPctg(this.props.goals.get('high'))}</Text>
-        <Text style={[styles.abs, styles.offMid]}>{this._renderPctg(this.props.goals.get('mid'))}</Text>
-        <Text style={[styles.abs, styles.offLow]}>{this._renderPctg(this.props.goals.get('low'))}</Text>
-        <Text style={[styles.abs, styles.defHigh]}>{this._renderPctg(this.props.goals.get('high'))}</Text>
-        <Text style={[styles.abs, styles.defMid]}>{this._renderPctg(this.props.goals.get('mid'))}</Text>
-        <Text style={[styles.abs, styles.defLow]}>{this._renderPctg(this.props.goals.get('low'))}</Text>
+        <Text style={[styles.abs, styles.offHigh]}>{this._renderPctg(this.props.goals.offHigh)}</Text>
+        <Text style={[styles.abs, styles.offMid]}>{this._renderPctg(this.props.goals.offMid)}</Text>
+        <Text style={[styles.abs, styles.offLow]}>{this._renderPctg(this.props.goals.offLow)}</Text>
+        <Text style={[styles.abs, styles.defHigh]}>{this._renderPctg(this.props.goals.defHigh)}</Text>
+        <Text style={[styles.abs, styles.defMid]}>{this._renderPctg(this.props.goals.defMid)}</Text>
+        <Text style={[styles.abs, styles.defLow]}>{this._renderPctg(this.props.goals.defLow)}</Text>
       </View>
     );
   }
