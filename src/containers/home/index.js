@@ -31,7 +31,7 @@ function Home(props) {
   return (
     <ScrollableTabView
       style={styles.container}
-      initialPage={3}
+      initialPage={0}
       tabBarPosition={'bottom'}
       renderTabBar={() => <FacebookTabBar tabNames={tabNames} />}
     >
@@ -42,7 +42,7 @@ function Home(props) {
         />
       </ScrollView>
 
-      <ScrollView tabLabel="ios-people" style={styles.tabView}>
+      <ScrollView tabLabel="ios-git-pull-request" style={styles.tabView}>
         <Breakout eventLength={props.eventLength}
           actionSwitchBreakout={props.actionSwitchBreakout}
           play={props.breakoutPlay}
@@ -51,13 +51,13 @@ function Home(props) {
         />
       </ScrollView>
 
-      <View tabLabel="ios-chatboxes" style={styles.tabView}>
+      <View tabLabel="ios-grid" style={styles.tabView}>
         <ShotLocation
           shots={props.shots}
         />
       </View>
 
-      <ScrollView tabLabel="ios-notifications" style={styles.tabView}>
+      <ScrollView tabLabel="ios-stats" style={styles.tabView}>
         <GoalLocation
           goals={props.goals}
         />
