@@ -2,7 +2,7 @@ const rp = require('request-promise');
 const fs = require('fs');
 
 let GAMES_SAVED = 0;
-const GAMES_SAVE_MAX = 100;
+const GAMES_SAVE_MAX = 15;
 const FILE_TO_SAVE = './db.json';
 const GAMES_TO_SAVE = [];
 
@@ -40,7 +40,7 @@ function saveDbToFile() {
 function getJsonForGameId(id) {
   paddedId = leftPad(id);
 
-  return rp('http://statsapi.web.nhl.com/api/v1/game/201502 ' + paddedId + '/feed/live')
+  return rp('http://statsapi.web.nhl.com/api/v1/game/201601 ' + paddedId + '/feed/live')
     .then((jsonString) => JSON.parse(jsonString))
     .then((json) => {
       if (isGoodGame(json)) {
